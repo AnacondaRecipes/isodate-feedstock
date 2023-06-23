@@ -1,23 +1,26 @@
-{% set version = "0.6.0" %}
+{% set name = "isodate" %}
+{% set version = "0.6.1" %}
+
 
 package:
-  name: isodate
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/i/isodate/isodate-{{ version }}.tar.gz
-  sha256: 2e364a3d5759479cdb2d37cce6b9376ea504db2ff90252a2e5b7cc89cc9ff2d8
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 48c5881de7e8b0a0d648cb024c8062dc84e7b840ed81e864c7614fd3c127bde9
+
 
 build:
-  number: 1
-  noarch: python
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - python
     - pip
-    - six
+    - setuptools
+    - wheel
   run:
     - python
     - six
@@ -26,16 +29,24 @@ test:
   imports:
     - isodate
     - isodate.tests
+  requires: 
+    - pip
+  commands: 
+    - pip check
 
 about:
-  home: http://cheeseshop.python.org/pypi/isodate
-  license: BSD 3-Clause
-  summary: 'An ISO 8601 date/time/duration parser and formatter.'
+  home: https://github.com/gweis/isodate/
+  license: BSD-3-Clause
+  license_family: BSD
+  # The upstream source hasn't a license_file for v0.6.1, only the master branch has it
+  license_url: https://github.com/gweis/isodate/blob/master/LICENSE
+  summary: An ISO 8601 date/time/duration parser and formatter.
   description: |
     This module implements ISO 8601 date, time and duration parsing. The
     implementation follows ISO8601:2004 standard, and implements only date/time
     representations mentioned in the standard.
   dev_url: https://github.com/gweis/isodate
+  doc_url: https://github.com/gweis/isodate/
 
 extra:
   recipe-maintainers:
