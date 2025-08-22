@@ -10,7 +10,7 @@ source:
   sha256: 4cd1aa0f43ca76f4a6c6c0292a85f40b35ec2e43e315b59f06e6d32171a953e6
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: True  # [py<37]
 
@@ -19,6 +19,7 @@ requirements:
     - python
     - pip
     - setuptools
+    - setuptools_scm
     - wheel
   run:
     - python
